@@ -1,10 +1,16 @@
-import React from "react";
-import WelcomeScreen from "../welcome-screen/welcome-screen";
+import React from 'react';
+import PropTypes from 'prop-types';
+import WelcomeScreen from '../welcome-screen/welcome-screen';
 
 const App = (props) => {
 	const { gameTime, errorCount } = props;
-    console.log(props);
 	return <WelcomeScreen time={gameTime} errorCount={errorCount} />;
+};
+
+App.PropTypes = {
+	mistakes: PropTypes.number.isRequired,
+	onClick: PropTypes.func.isRequired,
+	time: PropTypes.number.isRequired
 };
 
 export default App;
