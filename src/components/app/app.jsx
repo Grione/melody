@@ -7,7 +7,7 @@ const App = (props) => {
 	return <WelcomeScreen time={gameTime} errorCount={errorCount} />;
 };
 
-App.PropTypes = {
+App.propTypes = {
 	mistakes: PropTypes.number.isRequired,
 	onClick: PropTypes.func.isRequired,
 	time: PropTypes.number.isRequired
