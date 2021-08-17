@@ -8,9 +8,8 @@ const App = (props) => {
 };
 
 App.propTypes = {
-	mistakes: PropTypes.number.isRequired,
-	onClick: PropTypes.func.isRequired,
-	time: PropTypes.number.isRequired
+	errorCount: PropTypes.number.isRequired,
+	gameTime: PropTypes.number.isRequired
 };
 
 export default App;
