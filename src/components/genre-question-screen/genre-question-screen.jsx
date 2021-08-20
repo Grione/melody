@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GenreQuestionScreen = () => {
-	const { onAnswer, question } = props;
+const GenreQuestionScreen = (props) => {
+	const { question, onAnswer } = props;
 	const { answers, genre } = question;
 
 	return (
@@ -19,7 +19,11 @@ const GenreQuestionScreen = () => {
 						cx="390"
 						cy="390"
 						r="370"
-						style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"
+						style={{
+							filter: `url(#blur)`,
+							transform: `rotate(-90deg) scaleY(-1)`,
+							transformOrigin: `center`
+						}}
 					/>
 				</svg>
 
@@ -38,7 +42,13 @@ const GenreQuestionScreen = () => {
 
 			<section className="game__screen">
 				<h2 className="game__title">{`Выберите ${genre} треки`}</h2>
-				<form className="game__tracks">
+				<form
+					className="game__tracks"
+					onSubmit={(evt) => {
+						evt.preventDefault();
+						onAnswer();
+					}}
+				>
 					{answers.map((answer, i) => (
 						<div className="track" key={`${i}-${answer.src}`}>
 							<button className="track__button track__button--play" type="button" />
@@ -53,7 +63,7 @@ const GenreQuestionScreen = () => {
 									value={`answer-${i}`}
 									id={`answer-${i}`}
 								/>
-								<label className="game__check" for={`answer-${i}`}>
+								<label className="game__check" htmlFor={`answer-${i}`}>
 									Отметить
 								</label>
 							</div>
@@ -70,15 +80,17 @@ const GenreQuestionScreen = () => {
 };
 
 GenreQuestionScreen.propTypes = {
-  onAnswer: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-    })).isRequired,
-    genre: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]).isRequired,
-  }).isRequired,
+	onAnswer: PropTypes.func.isRequired,
+	question: PropTypes.shape({
+		answers: PropTypes.arrayOf(
+			PropTypes.shape({
+				src: PropTypes.string.isRequired,
+				genre: PropTypes.string.isRequired
+			})
+		).isRequired,
+		genre: PropTypes.string.isRequired,
+		type: PropTypes.oneOf([ `genre`, `artist` ]).isRequired
+	}).isRequired
 };
 
 export default GenreQuestionScreen;

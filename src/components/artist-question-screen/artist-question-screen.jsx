@@ -19,7 +19,11 @@ const ArtistQuestionScreen = (props) => {
 						cx="390"
 						cy="390"
 						r="370"
-						style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"
+						style={{
+							filter: `url(#blur)`,
+							transform: `rotate(-90deg) scaleY(-1)`,
+							transformOrigin: `center`
+						}}
 					/>
 				</svg>
 
@@ -47,7 +51,7 @@ const ArtistQuestionScreen = (props) => {
 					</div>
 				</div>
 
-				<form className="game__artist">
+				<form className="game__artist" onChange={onAnswer}>
 					{answers.map((answer, i) => (
 						<div key={`${answer.artist}-${i}`} className="artist">
 							<input
@@ -56,10 +60,6 @@ const ArtistQuestionScreen = (props) => {
 								name="answer"
 								value={`answer-${i}`}
 								id={`answer-${i}`}
-								onChange={(evt) => {
-									evt.preventDefault();
-									onAnswer(question, answer);
-								}}
 							/>
 							<label className="artist__name" htmlFor={`answer-${i}`}>
 								<img className="artist__picture" src={answer.picture} alt={answer.artist} />
@@ -74,11 +74,11 @@ const ArtistQuestionScreen = (props) => {
 };
 
 ArtistQuestionScreen.propTypes = {
-  onAnswer: PropTypes.func.isRequired,
+	onAnswer: PropTypes.func.isRequired,
 	question: PropTypes.shape({
 		answers: PropTypes.arrayOf(
 			PropTypes.shape({
-				piscture: PropTypes.string.isRequired,
+				picture: PropTypes.string.isRequired,
 				artist: PropTypes.string.isRequired
 			}).isRequired
 		),
