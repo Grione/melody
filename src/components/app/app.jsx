@@ -23,13 +23,10 @@ class App extends React.PureComponent {
 
 		return null;
 	}
-	constructor(props) {
-		super(props);
 
-		this.state = {
-			question: -1
-		};
-	}
+	state = {
+		question: -1
+	};
 
 	render() {
 		const { question } = this.state;
@@ -40,8 +37,7 @@ class App extends React.PureComponent {
 				const isEnd = nextIndex >= questions.length;
 
 				return {
-					...prevState,
-					question: !isEnd ? nextIndex: -1,
+					question: !isEnd ? nextIndex : -1
 				};
 			});
 		});
