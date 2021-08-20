@@ -9,7 +9,6 @@ const init = () => {
 		<App
 			errorCount={settings.errorCount}
 			gameTime={settings.gameTime}
-			welcomeButtonHandler={settings.welcomeButtonHandler}
       questions={questions}
 		/>,
 		document.querySelector(`#root`)
