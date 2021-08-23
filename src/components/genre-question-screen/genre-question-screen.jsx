@@ -50,7 +50,7 @@ const GenreQuestionScreen = (props) => {
 					}}
 				>
 					{answers.map((answer, i) => (
-						<div className="track" key={`${i}-${answer.src}`}>
+						<div className="track" key={answer.id}>
 							<button className="track__button track__button--play" type="button" />
 							<div className="track__status">
 								<audio src={answer.src} />
