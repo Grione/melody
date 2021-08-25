@@ -4,6 +4,10 @@ import AudioPlayer from '../audio-player/audio-player';
 class GenreQuestionScreen extends React.PureComponent {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			activePlayer: -1
+		};
 	}
 
 	render() {
@@ -55,7 +59,14 @@ class GenreQuestionScreen extends React.PureComponent {
 					>
 						{answers.map((answer, i) => (
 							<div className="track" key={answer.id}>
-								<AudioPlayer source={answer.src} isPlaying={false} />
+								<AudioPlayer
+									src={answer.src}
+									isPlaying={i === this.state.activePlayer}
+									onPlayButtonClick={() =>
+										this.setState({
+											activePlayer: this.state.activePlayer === i ? -1 : i
+										})}
+								/>
 
 								<div className="game__answer">
 									<input
