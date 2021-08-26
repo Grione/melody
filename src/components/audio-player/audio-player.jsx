@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AudioPlayer extends React.PureComponent {
 	constructor(props) {
@@ -60,7 +61,7 @@ class AudioPlayer extends React.PureComponent {
 		);
 	}
 
-  componentDidUpdate() {
+	componentDidUpdate() {
 		const audio = this.myRef.current;
 
 		if (this.props.isPlaying) {
@@ -76,5 +77,11 @@ class AudioPlayer extends React.PureComponent {
 		this.setState({ isPlaying: !this.state.isPlaying });
 	}
 }
+
+AudioPlayer.PropTypes = {
+	src: PropTypes.string.isRequired,
+	isPlaying: PropTypes.bool.isRequired,
+	onPlayButtonClick: PropTypes.func.isRequired
+};
 
 export default AudioPlayer;
