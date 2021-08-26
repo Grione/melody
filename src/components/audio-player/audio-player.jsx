@@ -17,6 +17,8 @@ class AudioPlayer extends React.PureComponent {
 
 	componentDidMount() {
 		const audio = this.myRef.current;
+    const {src} = this.props;
+    audio.src = src;
 
 		audio.oncanplaythrough = () =>
 			this.setState({
@@ -41,9 +43,18 @@ class AudioPlayer extends React.PureComponent {
 			});
 	}
 
+  componentWillUnmount() {
+    const audio = this.myRef.current;
+
+    audio.oncanplaythrough = null;
+    audio.onplay = null;
+    audio.onpause = null;
+    audio.ontimeupdate = null;
+    audio.src = ``;
+  }
+
 	render() {
 		const { isLoading, isPlaying } = this.state;
-		const { src } = this.props;
 
 		return (
 			<React.Fragment>
@@ -51,11 +62,11 @@ class AudioPlayer extends React.PureComponent {
 					className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
 					type="button"
 					disabled={isLoading}
-					onClick={this._onPlayButtonClick}
+					onClick={(this._onPlayButtonClick)}
 				/>
 
 				<div className="track__status">
-					<audio src={src} ref={this.myRef} />
+					<audio ref={this.myRef} />
 				</div>
 			</React.Fragment>
 		);
@@ -80,7 +91,6 @@ class AudioPlayer extends React.PureComponent {
 AudioPlayer.propTypes = {
 	src: PropTypes.string.isRequired,
 	isPlaying: PropTypes.bool.isRequired,
-	onPlayButtonClick: PropTypes.func.isRequired
 };
 
 export default AudioPlayer;

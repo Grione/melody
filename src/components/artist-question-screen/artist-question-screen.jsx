@@ -5,11 +5,17 @@ import AudioPlayer from '../audio-player/audio-player';
 class ArtistQuestionScreen extends React.PureComponent {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			isPlaying: false
+		};
 	}
 
 	render() {
 		const { onAnswer, question } = this.props;
 		const { answers, song } = question;
+		const { isPlaying } = this.state;
+
 		return (
 			<section className="game game--artist">
 				<header className="game__header">
@@ -49,14 +55,13 @@ class ArtistQuestionScreen extends React.PureComponent {
 					<h2 className="game__title">Кто исполняет эту песню?</h2>
 					<div className="game__track">
 						<div className="track">
-{/* 							<AudioPlayer
+							<AudioPlayer
 								src={song.src}
-								isPlaying={i === this.state.activePlayer}
-								onPlayButtonClick={() =>
-									this.setState({
-										activePlayer: this.state.activePlayer === i ? -1 : i
-									})}
-							/> */}
+								isPlaying={isPlaying}
+								onPlayButtonClick={()=> {
+                  this.setState({ isPlaying: !isPlaying })
+                }}
+							/>
 						</div>
 					</div>
 
