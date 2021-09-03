@@ -1,5 +1,3 @@
-import { createStore } from 'redux';
-
 const initialState = {
 	mistakes: 0,
 	step: -1
@@ -9,7 +7,7 @@ const INCREMENT_MISTAKES = `INCREMENT_MISTAKES`;
 const INCREMENT_STEP = `INCREMENT_STEP`;
 const RESET = `RESET`;
 
-const reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case INCREMENT_MISTAKES:
 			return { ...state, mistakes: state.mistakes + action.payload };
@@ -50,7 +48,3 @@ export const incrementMistake = (userAnswer, question, mistakes, maxMistakes) =>
 		payload: answerIsCorrect ? 0 : 1
 	};
 };
-
-const store = createStore(reducer);
-
-export default store;

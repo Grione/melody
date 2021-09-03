@@ -8,8 +8,8 @@ import questions from '../../mocks/questions';
 class App extends React.PureComponent {
 	static getScreen(question, props, onUserAnswer) {
 		if (question === -1) {
-			const { gameTime, errorCount } = props;
-			return <WelcomeScreen time={gameTime} errorCount={errorCount} onWelcomeButtonClick={onUserAnswer} />;
+			const { gameTime, maxMistakes } = props;
+			return <WelcomeScreen time={gameTime} maxMistakes={maxMistakes} onWelcomeButtonClick={onUserAnswer} />;
 		}
 		const { questions } = props;
 		const currentQuestion = questions[question];
@@ -45,7 +45,7 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-	errorCount: PropTypes.number.isRequired,
+	maxMistakes: PropTypes.number.isRequired,
 	gameTime: PropTypes.number.isRequired
 };
 
