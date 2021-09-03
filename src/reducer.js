@@ -3,48 +3,54 @@ const initialState = {
 	step: -1
 };
 
-const INCREMENT_MISTAKES = `INCREMENT_MISTAKES`;
-const INCREMENT_STEP = `INCREMENT_STEP`;
-const RESET = `RESET`;
+const ActionType = {
+  INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
+  INCREMENT_STEP: `INCREMENT_STEP`,
+  RESET: `RESET`,
+}
 
-export const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case INCREMENT_MISTAKES:
+		case ActionType.INCREMENT_MISTAKES:
 			return { ...state, mistakes: state.mistakes + action.payload };
-		case INCREMENT_STEP:
+		case ActionType.INCREMENT_STEP:
 			return { ...state, question: state.step + action.payload };
-		case RESET:
+		case ActionType.RESET:
 			return { ...state, initialState };
 		default:
 			return state;
 	}
 };
 
-export const incrementStep = () => ({
-	type: INCREMENT_STEP,
-	payload: 1
-});
+const ActionCreator = {
+	incrementStep: () => ({
+		type: ActionType.INCREMENT_STEP,
+		payload: 1
+	}),
 
-export const incrementMistake = (userAnswer, question, mistakes, maxMistakes) => {
-	let answerIsCorrect = false;
+	incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
+		let answerIsCorrect = false;
 
-	switch (question.type) {
-		case `artist`:
-			answerIsCorrect = isArtistAnswerCorrect(userAnswer, question);
-			break;
-		case `genre`:
-			answerIsCorrect = isGenreAnswerCorrect(userAnswer, question);
-			break;
-	}
+		switch (question.type) {
+			case `artist`:
+				answerIsCorrect = isArtistAnswerCorrect(userAnswer, question);
+				break;
+			case `genre`:
+				answerIsCorrect = isGenreAnswerCorrect(userAnswer, question);
+				break;
+		}
 
-	if (!answerIsCorrect && mistakes + 1 >= maxMistakes) {
+		if (!answerIsCorrect && mistakes + 1 >= maxMistakes) {
+			return {
+				type: ActionType.RESET
+			};
+		}
+
 		return {
-			type: RESET
+			type: ActionType.INCREMENT_MISTAKES,
+			payload: answerIsCorrect ? 0 : 1
 		};
 	}
-
-	return {
-		type: INCREMENT_MISTAKES,
-		payload: answerIsCorrect ? 0 : 1
-	};
 };
+
+export {reducer, ActionCreator, }
