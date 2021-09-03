@@ -3,11 +3,16 @@ const initialState = {
 	step: -1
 };
 
+const isArtistAnswerCorrect = (userAnswer, question) => userAnswer.artist === question.song.artist;
+
+const isGenreAnswerCorrect = (userAnswer, question) =>
+	userAnswer.every((it, i) => it === (question.answers[i].genre === question.genre));
+
 const ActionType = {
-  INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
-  INCREMENT_STEP: `INCREMENT_STEP`,
-  RESET: `RESET`,
-}
+	INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
+	INCREMENT_STEP: `INCREMENT_STEP`,
+	RESET: `RESET`
+};
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -53,4 +58,4 @@ const ActionCreator = {
 	}
 };
 
-export {reducer, ActionCreator, }
+export { reducer, ActionCreator, isArtistAnswerCorrect, isGenreAnswerCorrect };
