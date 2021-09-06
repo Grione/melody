@@ -14,19 +14,6 @@ const ActionType = {
 	RESET: `RESET`
 };
 
-const reducer = (state = initialState, action) => {
-	switch (action.type) {
-		case ActionType.INCREMENT_MISTAKES:
-			return { ...state, mistakes: state.mistakes + action.payload };
-		case ActionType.INCREMENT_STEP:
-			return { ...state, question: state.step + action.payload };
-		case ActionType.RESET:
-			return { ...state, initialState };
-		default:
-			return state;
-	}
-};
-
 const ActionCreator = {
 	incrementStep: () => ({
 		type: ActionType.INCREMENT_STEP,
@@ -55,6 +42,19 @@ const ActionCreator = {
 			type: ActionType.INCREMENT_MISTAKES,
 			payload: answerIsCorrect ? 0 : 1
 		};
+	}
+};
+
+const reducer = (state = initialState, action) => {
+	switch (action.type) {
+		case ActionType.INCREMENT_MISTAKES:
+			return { ...state, mistakes: state.mistakes + action.payload };
+		case ActionType.INCREMENT_STEP:
+			return { ...state, step: state.step + action.payload };
+		case ActionType.RESET:
+			return { ...state, initialState };
+		default:
+			return state;
 	}
 };
 
